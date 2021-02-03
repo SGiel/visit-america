@@ -213,13 +213,13 @@ var getMap = function(latitude,longitude) {
     // sg: required for leaflet map 1.31.2021
     var mymap = L.map('mapid').setView([latitude, longitude], 13);
 
-    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1Ijoic2dpZWwiLCJhIjoiY2trbDYwemFzMDFpZTJ3czNhMG5hMjRobSJ9.dmjQQoye-1mnJgtfJPLIWQ', {
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1Ijoic2dpZWwiLCJhIjoiY2trcGpwZHQzMnZ0bDJwcGRrbm92dm9jMSJ9.3_fLgDOXZRt6yaNl_du2cQ', {
         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
         maxZoom: 18,
         id: 'mapbox/streets-v11',
         tileSize: 512,
         zoomOffset: -1,
-        accessToken: 'pk.eyJ1Ijoic2dpZWwiLCJhIjoiY2trbDYwemFzMDFpZTJ3czNhMG5hMjRobSJ9.dmjQQoye-1mnJgtfJPLIWQ'
+        accessToken: 'pk.eyJ1Ijoic2dpZWwiLCJhIjoiY2trcGpwZHQzMnZ0bDJwcGRrbm92dm9jMSJ9.3_fLgDOXZRt6yaNl_du2cQ'
     }).addTo(mymap);
 }
 
