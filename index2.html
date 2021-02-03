@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!--Import Google Icon Font -- needed for Materialize-->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <!-- awesome fonts -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
+
+  <!-- Materialze compiled and minified CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+  <!-- sg: leaflet styling for map 1.31.2021 -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+    integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+    crossorigin="" />
+
+  <link rel="stylesheet" href="./assets/css/style.css" />
+  <!-- style2.css removed -->
+  
+  <title>Park Information</title>
+  <link rel="shortcut icon" type="image/jpg" href="./assets/img/favicon.ico"/>
+
+</head>
+
+<body>
+  <nav>
+    <!-- <There are no links in the nav bar because we go to page 2 by clicking a>
+          park and return through event listeners on visit america title and return btn -->
+    <div id="return-home" style="padding-left: 1%" 
+        class="nav-wrapper green darken-3 white-text z-depth-3">
+      <ul class="left">
+        <li class="visit-america-logo">Visit America</li>
+      </ul>
+      <ul  style="padding-right: 1%" class="right nav-button-ul">
+        <li id="return-to-search" 
+            class="waves-effect waves-light green darken-3 white text z-depth-4 btn">Return
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Stephanie added 1.30.2021 - id park-chosen-container needed to append image -->
+  <!-- after park name -->
+  <header class="green lighten-4 z-depth-1">
+    <h3 id="park-chosen" class="white center-align" 
+      style="margin:0; padding-top:1%; padding-bottom:1%"></h2>
+    <!-- vll 1/31: park img in one col, map in the other -->
+    <!-- adding valign-wrapper prevents wrapping so -->
+    <!-- mediaquery in css is used to stack img and map -->
+    <!-- js adds class .responsive-img to park img -->
+    <div class="container row valign-wrapper">
+      <div id="park-chosen-container" style="margin:auto" class="col s12 m6 l6 ">
+        <!-- js puts park image here -->
+      </div>
+      <div class="col s12 m6 l6 ">
+        <!-- sg: container needed for map 1.31.2021 -->
+        <div id="map-container">
+          <div id="mapid"></div>
+        </div>
+      </div> <!--  row -->
+      
+    </div>
+    <div row id="button-container" style="padding-bottom:1%" class="center-align">
+      <!-- a row for the webcam button -->
+    </div>
+  </header>
+  <!-- vl 1/31: Moved map and image into cols under park name -->
+
+  <main>
+    <!-- This div holds the api results that give -->
+    <!-- campground information about the selected park -->
+    <div class="container">
+      <div class="row">
+
+        <div class="col s12 m6">
+          <div class="row">
+            <div class="col s12">
+              <h4>Park Fees/Hours</h4>
+              <p>
+                <!-- append park fee info here -->
+                <span id="fee-title" class="generated-info"></span>
+                <span id="park-fee" class="generated-info"></span>
+              </p>
+              <p>
+                <!-- append description of park fee here -->
+                <span id="fee-description-title" class="generated-info"></span>
+                <span id="fee-description" class="generated-info"></span>
+              </p>
+              <p>
+                <!-- append park hours here -->
+                <span id="operating-hours-title" class="generated-info"></span>
+                <span id="operating-hours" class="generated-info"></span>
+              </p>
+              <p>
+                <!-- append exceptions to park hours here -->
+                <span id="exception-hours-title" class="generated-info"></span>
+                <span id="exception-hours" class="generated-info"></span>
+              </p>
+            </div>
+            <div class="col s12">
+              <h4>Campgrounds</h4>
+              <ul id="campground-list" class="generated-info">
+                <!-- append campground info here -->
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="col s12 m6" id="visitor-center" >
+          <!-- append visitor center or show error msg -->
+          <div id="visitor-center-error" >
+            <h4>Visitor Center</h4>
+            <p class="generated-info">No visitor center information available</p>
+          </div>
+        </div>
+
+        <!-- end of main row -->
+      </div>
+      <!-- end of container -->
+    </div>
+    
+    <!-- <div id="webcam-container"> -->
+      <!-- append webcam button here if webcam available -->
+    <!-- </div> -->
+    
+    <!-- Forecast is NOT in materializer container so it has more room -->
+    <!-- no-weather-forecast OR five-day-forecast divs are displayed -->
+    <!-- or hidden by js based on forecast availability -->
+    <!-- putting the headers and error msg in its own div makes -->\
+    <!-- them line up with the containers above -->
+    <div class="container">
+      <h4>Five-Day Forecast </h4>
+      <div id="no-weather-forecast" class="generated-info">No weather data available</div>
+    </div>
+
+    <div id="five-day-forecast">
+      <!-- Card 0 -->
+      <div class="row">
+        <div class="col s12 m4 l2 offset-l1">
+          <div id="card0" style="text-align:center" class="card green darken-1 z-depth-3">
+            <div class="card-content white-text">
+              <p class="card-title" id="card-date-0"></p>
+              <img id="card-icon-0" alt="weather icon">
+              <p class="card-info mb-2 ">Temp: <span id="card-temp-0"></span> &#8457</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 1 -->
+        <div class="col s12 m4 l2">
+          <div id="card1" style="text-align:center" class="card green darken-1 z-depth-3">
+            <div class="card-content white-text">
+              <p class="card-title" id="card-date-1"></p>
+              <img id="card-icon-1" alt="weather icon">
+              <p class="card-info mb-2 ">Temp: <span id="card-temp-1"></span> &#8457</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="col s12 m4 l2">
+          <div id="card2" style="text-align:center" class="card green darken-1 z-depth-3">
+            <div class="card-content white-text">
+              <p class="card-title" id="card-date-2"></p>
+              <img id="card-icon-2" alt="weather icon">
+              <p class="card-info mb-2 ">Temp: <span id="card-temp-2"></span> &#8457</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="col s12 m4 l2">
+          <div id="card3" style="text-align:center" class="card green darken-1 z-depth-3">
+            <div class="card-content white-text">
+              <p class="card-title" id="card-date-3"></p>
+              <img id="card-icon-3" alt="weather icon">
+              <p class="card-info mb-2 ">Temp: <span id="card-temp-3"></span> &#8457</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="col s12 m4 l2">
+          <div id="card4" style="text-align:center" class="card green darken-1 z-depth-3">
+            <div class="card-content white-text">
+              <p class="card-title" id="card-date-4"></p>
+              <img id="card-icon-4" alt="weather icon">
+              <p class="card-info mb-2 ">Temp: <span id="card-temp-4"></span> &#8457</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <!--row-->
+    </div> <!-- 5-day-forecast-->
+
+
+  </main>
+  
+  <footer>Made with blood, sweat, and many zoom meetings by: Cori, Jennifer, Stephanie, and Vicky. &#169 2021</footer>
+
+  <!-- <footer class="green darken-3 white-text">Made with blood, sweat, and many zoom meetings by: Cori, Jennifer, Stephanie, and Vicky. &#169 2021</footer> -->
+
+  <!-- moment.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+
+
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+  <!-- Compiled and minified JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <!-- sg: leaflet JavaScript 1.31.2021 -->
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+    integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+    crossorigin=""></script>
+
+  <script src="./assets/js/script2.js"></script>
+</body>
+
+</html>
