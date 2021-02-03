@@ -304,7 +304,27 @@ var fetchParks = function (stateName) {
 cleanStart();
 getParks();
 
-stateNameEl.onchange = function() {
+/*
+stateNameEl.addEventListener("click", function(event) {
+    console.log(event.target);
+    cleanStart();
+    // captures the full state name from the html code drop down menu
+    // full state name to be used to in a header on the page rather than state abbreviation
+    var stateAbbreviation = $(this).find('option:selected').attr('id')
+    // the value of the selected element is the state name
+    var stateNameHeading = (stateNameEl.value);
+    parkHeadingEl.textContent = `Parks in ${stateNameHeading}`;
+    // puts the full park name in localStorage so that when go to new window to
+    // search a park and return to main page the full state name can still be displayed
+    localStorage.setItem("parkFullName", JSON.stringify(stateNameHeading));
+
+    fetchParks(stateAbbreviation);
+
+})
+*/
+stateNameEl.onchange = function(event) {
+    event.preventDefault();
+    console.log("targeted event", event.target);
     cleanStart();
     // captures the full state name from the html code drop down menu
     // full state name to be used to in a header on the page rather than state abbreviation
