@@ -7,7 +7,7 @@ Developers:
 * [Cori Cathemer](https://github.com/coricathemer): Design, HTML, CSS
 * [Jennifer Molina](https://github.com/JenMol86): HTML, Testing
 
-application URL: [vloebel.github.io/happycamper](https://sgiel.github.io/visit-america/) 
+application URL: [sgiel.github.io/visit-america](https://sgiel.github.io/visit-america/) 
 
 **Modification History**  
 
