@@ -29,7 +29,8 @@ nav a{
  .visit-america-logo{
    font-family:Verdana, Geneva, Tahoma, sans-serif;
    font-size:1.75em;
-   text-align:left
+   text-align:left;
+   cursor: pointer;
 
  }
  
@@ -76,7 +77,9 @@ footer {
 }
 
 #park-list li:hover {
-  color: darkolivegreen;
+  background-color: rgba(19, 77, 22, .50);
+  border-radius: 15px;
+  color: white;
   cursor: pointer;
 }
 

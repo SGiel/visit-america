@@ -114,7 +114,7 @@ var saveParkHistory = function(parkCode, parkName) {
             operatingHours: "",
             exceptionHours: ""
         }
-        console.log("in saveParkHistory and should change parkName in 2nd page");
+        // console.log("in saveParkHistory and should change parkName in 2nd page");
         // search through parks to find park info that matches park user chose to save to
         // parkHistory
         for (i = 0; i < parks.parkCode.length; i++) {
@@ -238,7 +238,7 @@ var fetchParks = function (stateName) {
         return response.json();
     })
     .then(function(data) {
-        console.log("the data from Natl Park API", data.data);
+        // console.log("the data from Natl Park API", data.data);
         parks.stateName = stateName;
         for (i = 0; i < data.data.length; i++) {
             var fullNameAlphaOnly = fixParkName(data.data[i].fullName);
@@ -304,27 +304,9 @@ var fetchParks = function (stateName) {
 cleanStart();
 getParks();
 
-/*
-stateNameEl.addEventListener("click", function(event) {
-    console.log(event.target);
-    cleanStart();
-    // captures the full state name from the html code drop down menu
-    // full state name to be used to in a header on the page rather than state abbreviation
-    var stateAbbreviation = $(this).find('option:selected').attr('id')
-    // the value of the selected element is the state name
-    var stateNameHeading = (stateNameEl.value);
-    parkHeadingEl.textContent = `Parks in ${stateNameHeading}`;
-    // puts the full park name in localStorage so that when go to new window to
-    // search a park and return to main page the full state name can still be displayed
-    localStorage.setItem("parkFullName", JSON.stringify(stateNameHeading));
-
-    fetchParks(stateAbbreviation);
-
-})
-*/
 stateNameEl.onchange = function(event) {
     event.preventDefault();
-    console.log("targeted event", event.target);
+    // console.log("targeted event", event.target);
     cleanStart();
     // captures the full state name from the html code drop down menu
     // full state name to be used to in a header on the page rather than state abbreviation

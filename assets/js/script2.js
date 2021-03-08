@@ -82,7 +82,7 @@ var parkHistory = [];
 var displayFeeHours = function(fee, feeDescr, operatingHours, exceptionHours) {
     if (fee) {
         parkFeeTitleEl.textContent = "Entrance Fee: "
-        console.log(parkFeeTitleEl)
+        // console.log(parkFeeTitleEl)
         parkFeeEl.textContent = fee;
     }
     if (feeDescr) {
@@ -118,7 +118,7 @@ var displayCampgrounds = function() {
             } else {
                 campgroundListItem.textContent = campgrounds.name[i];
             }
-            console.log("campgrounds in displayCampgrounds", campgrounds);
+            // console.log("campgrounds in displayCampgrounds", campgrounds);
             campgroundListEl.appendChild(campgroundListItem);
         }
     // let user know there were no campgrounds for this park
@@ -140,7 +140,7 @@ var displayVisitorCenter = function() {
     // vl: I'm really stuck here - not sure I understand the code and
     // no matter what I do we either seem to abort in the weather section
     // or fall through here - never get to the else part i dont' think
-    console.log('visitor center object: ${visitorCenter');
+    // console.log('visitor center object: ${visitorCenter');
     var visitorCenterName = document.createElement("h4");
     visitorCenterName.textContent = visitorCenter.name;
     visitorCenterName.id = "visitor-center-name";
@@ -157,7 +157,7 @@ var displayVisitorCenter = function() {
     }
   else {
     visitorCenterErrorEl.style.display = "block";
-    console.log("no visitor center information was available");
+    // console.log("no visitor center information was available");
     // the error message is already there
     }
 // end of displayVisitorCenter function    
@@ -197,7 +197,7 @@ var displayForecast = function () {
     for (i = 0; i < 5; i++) {
         var cardContainerEl = document.querySelector("#card" + i.toString());
         var cardDateEl = document.querySelector("#card-date-" + i.toString());
-        console.log("cardDateEl", cardDateEl);
+        // console.log("cardDateEl", cardDateEl);
         cardDateEl.textContent = parkForecast.forecastDate[i];
         var cardIconEl = document.querySelector("#card-icon-" + i.toString());
         cardIconEl.src = "http://openweathermap.org/img/wn/" + parkForecast.forecastIcon[i] + "@2x.png";
@@ -230,14 +230,14 @@ var fetchCampgrounds = function(parkCode) {
         return response.json();
     })
     .then(function(data) {
-        console.log("campgrounds", data.data);
+      // console.log("campgrounds", data.data);
       // vl: start with a no campground message and then overwrite if good
       // that catches both bad data and good data with no name maybe?
       campgrounds.name[0] = "No campground information available";
         if (data.data) {
             for (i = 0; i < data.data.length; i++) {
                 campgrounds.name[i] = data.data[i].name;
-                console.log("campground url", data.data[i].url);
+                // console.log("campground url", data.data[i].url);
                 if (data.data[i].url) {
                     campgrounds.url[i] = data.data[i].url;
                 }
@@ -261,7 +261,7 @@ var fetchVisitorCenter = function(parkCode) {
         return response.json();
     })
     .then(function(data) {
-        console.log("fetchVisitorCenter data", data.data);
+        // console.log("fetchVisitorCenter data", data.data);
         // take first visitor center info available
         if (data.data[0]) {
             visitorCenter.name = data.data[0].name;
@@ -281,7 +281,7 @@ var fetchVisitorCenter = function(parkCode) {
     .catch(function(error) {
         console.error(error);
         visitorCenterErrorEl.style.display = "block";
-        console.log("API Catch- visitor center fetch failed");
+        // console.log("API Catch- visitor center fetch failed");
     
     });
 // end of fetchVisitorCenter function
@@ -294,7 +294,7 @@ var fetchWebcams = function(parkCode) {
         return response.json();
     })
     .then(function(data) {
-        console.log("webcams", data.data);
+        // ("webcams", data.data);
         
         // take first webcam info available
         if (data.data) {
@@ -310,7 +310,7 @@ var fetchWebcams = function(parkCode) {
     .catch(function(error) {
         console.error(error);
         visitorCenterErrorEl.style.display = "block";
-        console.log("API Catch- visitor center fetch failed");
+        // console.log("API Catch- visitor center fetch failed");
     
     });
 // end of fetchWebcams function
@@ -338,8 +338,8 @@ var getParkHistory = function(){
 var getParkIndex = function(parkChosen) {
     // finds the park is already in parkHistory
     var parkIndex = -1;
-    console.log("parkHistory ", parkHistory);
-    console.log("parkChosen", parkChosen);
+    // console.log("parkHistory ", parkHistory);
+    // console.log("parkChosen", parkChosen);
     if (parkHistory) {
         for (i = 0; i < parkHistory.length; i++) {
             if (parkHistory[i].parkCode === parkChosen.parkCode) {
@@ -420,7 +420,7 @@ var fetchForecast = function (latitude, longitude) {
         }
         else {
           // turn off the weather div
-          console.log("no forecast available");
+        //   console.log("no forecast available");
           noWeatherEl.style.display = "block";
           fiveDayEl.style.display = "none";
 
@@ -430,7 +430,7 @@ var fetchForecast = function (latitude, longitude) {
     })
     .catch(function(error) {
       console.error(error);
-      console.log("Greetings from weather data catch function");
+    //   console.log("Greetings from weather data catch function");
       // vl: deleted alert - turn off the weather display div
       fiveDayEl.style.display = "none";
       noWeatherEl.style.display = "block";
